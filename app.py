@@ -1,7 +1,10 @@
+import os
 import requests
 import streamlit as st
 
 st.set_page_config(page_title="Marketing AI", page_icon="🚀", layout="centered")
+
+API_URL = os.getenv("API_URL", "http://15.206.164.222:8000/api/v1/chat")
 
 # Sidebar for settings
 st.sidebar.title("Settings")
@@ -41,7 +44,7 @@ if prompt := st.chat_input("What is your marketing question?"):
     with st.spinner("Thinking..."):
         try:
             response = requests.post(
-                "http://15.206.164.222:8000/api/v1/chat",
+                API_URL,
                 json={"user_id": user_id, "query": prompt},
                 timeout=60,
             )
